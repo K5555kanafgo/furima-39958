@@ -1,24 +1,53 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column               | Type   | Options                   |
+| -----------------    | ------ | ------------------------- |
+| nickname             | string | null: false               |
+| email                | string | null: false, unique: true |
+| password             | string | null: false               |
+| password_confirmation| string | null: false               |
+| user_name1           | string | null: false               |
+| user_name2           | string | null: false               |
+| position             | string | null: false               |
 
-* Ruby version
+has_many
+items
+comments
 
-* System dependencies
+## items テーブル
 
-* Configuration
+| Column     | Type       | Options                       |
+| ---------  | ---------- | ----------------------------- |
+| title      | string     | null: false                   |
+| explanation| text       | null: false                   |
+| category   | text       | null: false                   |
+| situation  | text       | null: false                   |
+| load       | text       | null: false                   |
+| region     | text       | null: false                   |
+| days       | text       | null: false                   |
+| price      | text       | null: false                   |
+| user       | references | null: false, foreign_key:true |
+| purchase   | references | null: false, foreign_key:true |
 
-* Database creation
+belong_to
+user
+purchase
 
-* Database initialization
+has_many
+comments
 
-* How to run the test suite
+## purchases テーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column     | Type       | Options                       |
+| ---------  | ---------- | ----------------------------- |
+| title      | string     | null: false                   |
+| category   | text       | null: false                   |
+| situation  | text       | null: false                   |
+| load       | text       | null: false                   |
+| region     | text       | null: false                   |
+| days       | text       | null: false                   |
 
-* Deployment instructions
-
-* ...
+has_one
+item
