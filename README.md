@@ -28,8 +28,8 @@
 | category_id        | integer    | null: false                    |
 | situation_id       | integer    | null: false                    |
 | load_id            | integer    | null: false                    |
-| prefectures_id     | integer    | null: false                    |
-| number_of_days_id  | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| number_of_day_id   | integer    | null: false                    |
 | price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
 
@@ -39,9 +39,9 @@
 - has_one     : item_purchase
 - active_hash : category_id
 - active_hash : situation_id
-- active_hash : prefectures_id
-- active_hash : region_id
-- active_hash : number_of_days_id
+- active_hash : load_id
+- active_hash : prefecture_id
+- active_hash : number_of_day_id
 
 
 ## item_purchases テーブル (商品購入機能)
@@ -74,7 +74,7 @@
 | Column             | Type        | Options                        |
 | -------------------| ----------- | ------------------------------ |
 | post_code          | string      | null: false                    |
-| prefectures_id     | integer     | null: false                    |
+| prefecture_id      | integer     | null: false                    |
 | town_name          | string      | null: false                    |
 | number             | string      | null: false                    |
 | telephone_number   | string      | null: false                    |
