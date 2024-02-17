@@ -44,10 +44,22 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
 
-      it 'パスワードは、半角英数字混合での入力が必須であること' do
-        @user.password = '444444', 'aaaaaa'
+      it 'パスワードは、半角英字のみでは登録できないこと' do
+        @user.password = 'ssssss'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password is invalid")
+      end
+
+      it 'パスワードは、半角数字のみでは登録できないこと' do
+        @user.password = '444444'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password is invalid")
+      end
+
+      it 'パスワードは、全角文字を含むパスワードでは登録できない' do
+        @user.password = 'KSKKii'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password is invalid")
       end
 
       it 'パスワードとパスワード（確認）は、値の一致が必須であること。' do
@@ -67,8 +79,8 @@ RSpec.describe User, type: :model do
       end
 
       it 'お名前(全角)は、全角（漢字・ひらがな・カタカナ）での入力が必須であること。' do
-        @user.read_family = 'ﾔﾏ'
-        @user.read_first = 'ﾘｮｳ'
+        @user.read_family = 'ﾔﾏﾀﾞ'
+        @user.read_first = 'ﾀﾛｳ'
         @user.valid?
         expect(@user.errors.full_messages).to include('Read first is invalid. Input full-width katakana characters',
                                                       'Read family is invalid. Input full-width katakana characters')
@@ -85,7 +97,6 @@ RSpec.describe User, type: :model do
         @user.read_family = '12345'
         @user.read_first = '12345'
         @user.valid?
-
         expect(@user.errors.full_messages).to include('Read first is invalid. Input full-width katakana characters',
                                                       'Read family is invalid. Input full-width katakana characters')
       end
@@ -94,6 +105,47 @@ RSpec.describe User, type: :model do
         @user.birthday = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Birthday can't be blank")
+      end
+
+      it '名字（全角）+ 名前（全角）に半角文字が含まれていると登録できない' do
+        @user.family_name = 'ﾔﾏﾀﾞ'
+        @user.first_name = 'ﾀﾛｳ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid. Input full-width characters",
+                                                      "Family name is invalid. Input full-width characters")
+      end
+
+
+      it '名字（カナ）+ 名前（カナ）にカタカナ以外の文字（平仮名）が含まれていると登録できない' do
+        @user.read_family = 'にじゅうまんにせん' 
+        @user.read_first = 'ごひゃくまんにじゅうご'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Read first is invalid. Input full-width katakana characters",
+                                                      "Read family is invalid. Input full-width katakana characters")
+      end
+
+      it '名字（カナ）+ 名前（カナ）にカタカナ以外の文字（漢字）が含まれていると登録できない' do
+        @user.read_family = '二十万二千' 
+        @user.read_first = '五百万二十五'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Read first is invalid. Input full-width katakana characters",
+                                                      "Read family is invalid. Input full-width katakana characters")
+      end
+
+      it '名字（カナ）+ 名前（カナ）にカタカナ以外の文字（英数字）が含まれていると登録できない' do
+        @user.read_family = 'nijuumann2000' 
+        @user.read_first = 'gohaykuman25'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Read first is invalid. Input full-width katakana characters",
+                                                      "Read family is invalid. Input full-width katakana characters")
+      end
+
+      it '名字（カナ）+ 名前（カナ）にカタカナ以外の文字（記号）が含まれていると登録できない' do
+        @user.read_family = '$$##&&' 
+        @user.read_first = '**<<=='
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Read first is invalid. Input full-width katakana characters",
+                                                      "Read family is invalid. Input full-width katakana characters")
       end
     end
   end
