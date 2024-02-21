@@ -19,4 +19,6 @@ class User < ApplicationRecord
     validates :read_first
     validates :read_family
   end
+
+  has_many :items
 end
