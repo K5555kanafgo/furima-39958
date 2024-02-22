@@ -11,6 +11,7 @@ class Item < ApplicationRecord
     belongs_to        :number_of_day
 
     validates :title, :explanation, presence: true
+    validates :price, presence: true, numericality: true
 
     validates :category_id,      numericality: { other_than: 1, message: "can't be blank" }
     validates :situation_id,     numericality: { other_than: 1, message: "can't be blank" }
