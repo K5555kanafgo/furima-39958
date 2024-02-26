@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :item do
-    title             {"タイトル"}
-    explanation       {Faker::Lorem.paragraph}
+    title             { 'タイトル' }
+    explanation       { Faker::Lorem.paragraph }
     category_id       { 1 }
     situation_id      { 1 }
     load_id           { 1 }
