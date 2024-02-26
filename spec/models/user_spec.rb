@@ -95,19 +95,19 @@ RSpec.describe User, type: :model do
       it 'パスワードは、半角英字のみでは登録できないこと' do
         @user.password = 'ssssss'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password is invalid")
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", 'Password is invalid')
       end
 
       it 'パスワードは、半角数字のみでは登録できないこと' do
         @user.password = '444444'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password is invalid")
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", 'Password is invalid')
       end
 
       it 'パスワードは、全角文字を含むパスワードでは登録できない' do
         @user.password = 'KSKKii'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password is invalid")
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", 'Password is invalid')
       end
 
       it 'パスワードとパスワード（確認）は、値の一致が必須であること。' do
@@ -176,61 +176,61 @@ RSpec.describe User, type: :model do
       it '名字（全角）に半角文字が含まれていると登録できない' do
         @user.family_name = 'ﾔﾏﾀﾞ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters")
+        expect(@user.errors.full_messages).to include('Family name is invalid. Input full-width characters')
       end
 
       it ' 名前（全角）に半角文字が含まれていると登録できない' do
         @user.first_name = 'ﾀﾛｳ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name is invalid. Input full-width characters")
+        expect(@user.errors.full_messages).to include('First name is invalid. Input full-width characters')
       end
 
       it '名字（カナ）にカタカナ以外の文字（平仮名）が含まれていると登録できない' do
-        @user.read_family = 'にじゅうまんにせん' 
+        @user.read_family = 'にじゅうまんにせん'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read family is invalid. Input full-width katakana characters")
+        expect(@user.errors.full_messages).to include('Read family is invalid. Input full-width katakana characters')
       end
 
       it '名前（カナ）にカタカナ以外の文字（平仮名）が含まれていると登録できない' do
         @user.read_first = 'ごひゃくまんにじゅうご'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read first is invalid. Input full-width katakana characters")
+        expect(@user.errors.full_messages).to include('Read first is invalid. Input full-width katakana characters')
       end
 
       it '名字（カナ）にカタカナ以外の文字（漢字）が含まれていると登録できない' do
-        @user.read_family = '二十万二千' 
+        @user.read_family = '二十万二千'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read family is invalid. Input full-width katakana characters")
+        expect(@user.errors.full_messages).to include('Read family is invalid. Input full-width katakana characters')
       end
 
       it '名前（カナ）にカタカナ以外の文字（漢字）が含まれていると登録できない' do
         @user.read_first = '五百万二十五'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read first is invalid. Input full-width katakana characters")
+        expect(@user.errors.full_messages).to include('Read first is invalid. Input full-width katakana characters')
       end
 
       it '名字（カナ）にカタカナ以外の文字（英数字）が含まれていると登録できない' do
-        @user.read_family = 'nijuumann2000' 
+        @user.read_family = 'nijuumann2000'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read family is invalid. Input full-width katakana characters")
+        expect(@user.errors.full_messages).to include('Read family is invalid. Input full-width katakana characters')
       end
 
       it '名前（カナ）にカタカナ以外の文字（英数字）が含まれていると登録できない' do
         @user.read_first = 'gohaykuman25'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read first is invalid. Input full-width katakana characters")
+        expect(@user.errors.full_messages).to include('Read first is invalid. Input full-width katakana characters')
       end
 
       it '名字（カナ）にカタカナ以外の文字（記号）が含まれていると登録できない' do
-        @user.read_family = '$$##&&' 
+        @user.read_family = '$$##&&'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read family is invalid. Input full-width katakana characters")
+        expect(@user.errors.full_messages).to include('Read family is invalid. Input full-width katakana characters')
       end
 
-      it '名前（カナ）にカタカナ以外の文字（記号）が含まれていると登録できない' do 
+      it '名前（カナ）にカタカナ以外の文字（記号）が含まれていると登録できない' do
         @user.read_first = '**<<=='
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read first is invalid. Input full-width katakana characters")
+        expect(@user.errors.full_messages).to include('Read first is invalid. Input full-width katakana characters')
       end
     end
   end
