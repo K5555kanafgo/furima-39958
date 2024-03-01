@@ -9,16 +9,16 @@
     <div class="item-img-content">
       <%= image_tag @item.image, class:"item-box-img" %>
 
-       <% if @items.present? %>
-         <div class="sold-out">
-          <span>Sold Out!!</span>
-         </div>
-       <% end %>
+       <%## if @items.present? %>
+         <%## div class="sold-out">
+        <%#<span>Sold Out!!</span>
+         <%#</div>
+       <%## end %>
 
     </div>
     <div class="item-price-box">
       <span class="item-price">
-        ¥ 999,999,999
+        <%= @item.price %>
       </span>
       <span class="item-postage">
         <%= @item.load.name %>
