@@ -35,6 +35,7 @@ class ItemsController < ApplicationController
   end
 
   private
+
   def item_params
     params.require(:item).permit(:image, :title, :explanation, :category_id, :situation_id,
                                  :load_id, :prefecture_id, :number_of_day_id, :price).merge(user_id: current_user.id)
@@ -45,8 +46,8 @@ class ItemsController < ApplicationController
   end
 
   def item_url
-    unless current_user == @item.user_id
-      redirect_to action: :index
-    end
+    return if current_user == @item.user_id
+
+    redirect_to action: :index
   end
 end
