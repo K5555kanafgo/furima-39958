@@ -12,7 +12,7 @@ class ItemPurchasesController < ApplicationController
        redirect_to root_path
     else
        @item = Item.find(params[:item_id])
-       render :index
+       render :index, status: :unprocessable_entity
     end
   end
 
