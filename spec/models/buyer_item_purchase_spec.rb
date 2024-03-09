@@ -4,17 +4,18 @@ RSpec.describe BuyerItemPurchase, type: :model do
   before do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item)
-    @buyer_item_purchase = FactoryBot.build(:buyer_item_purchase, user_id: @user_id, item_id: @item_id)
+    @buyer_item_purchase = FactoryBot.build(:buyer_item_purchase, user_id: @user.id, item_id: @item.id)
   end
   describe "配送情報の保存" do
 
     context "配送先情報に内容が問題ない場合" do
       it '全ての値が正しく入力され、保存ができること' do
-        
+        expect(@buyer_item_purchase).to be_valid
       end
 
       it '建物名が空でも保存できること' do
-        
+        @buyer_item_purchase.building_name = ""
+        expect(@buyer_item_purchase).to be_valid
       end
     end
 
