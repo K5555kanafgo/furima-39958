@@ -1,6 +1,7 @@
 class ItemPurchasesController < ApplicationController
 
   def index
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @buyer_item_purchase = BuyerItemPurchase.new
     @item = Item.find(params[:item_id])
   end
@@ -9,11 +10,12 @@ class ItemPurchasesController < ApplicationController
     @buyer_item_purchase = BuyerItemPurchase.new(buyer_params)
     @item = Item.find(params[:item_id])
     if @buyer_item_purchase.valid?
-       pay_item
-       @buyer_item_purchase.save
-       return redirect_to root_path
+      pay_item
+      @buyer_item_purchase.save
+      return redirect_to root_path
     else
-       render :index, status: :unprocessable_entity
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +25,7 @@ class ItemPurchasesController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = '*************************'
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,
       card: buyer_params[:token],
