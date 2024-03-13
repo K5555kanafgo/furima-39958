@@ -16,6 +16,6 @@ class BuyerItemPurchase
 
   def save
     item_purchase = ItemPurchase.create(user_id: user_id, item_id: item_id)
-    Buyer.create(post_code: post_code, prefecture_id: prefecture_id, town_name: town_name, number: number, telephone_number: telephone_number, building_name: building_name, item_purchase_id: item_purchase.id)
+    Buyer.create(post_code: post_code, prefecture_id: prefecture_id, town_name: town_name, number: number, building_name: building_name, telephone_number: telephone_number, item_purchase_id: item_purchase.id)
   end
 end
