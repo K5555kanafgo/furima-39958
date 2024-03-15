@@ -1,4 +1,7 @@
 class ItemPurchasesController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :buyer_item_purchase_url, only: [:index, :create, :edit]
+
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -31,6 +34,13 @@ class ItemPurchasesController < ApplicationController
       card: buyer_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def buyer_item_purchase_url
+    @item = Item.find(params[:item_id])
+    if @item.user_id && current_user.id || @item.purchase.present?
+      redirect_to root_path
+    end
   end
 
 end
