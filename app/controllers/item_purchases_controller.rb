@@ -38,7 +38,7 @@ class ItemPurchasesController < ApplicationController
 
   def buyer_item_purchase_url
     @item = Item.find(params[:item_id])
-    if @item.user_id && current_user.id || @item.purchase.present?
+    if @item.user_id == current_user.id || @item.item_purchase.present?
       redirect_to root_path
     end
   end

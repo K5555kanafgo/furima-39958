@@ -10,6 +10,5 @@ window.addEventListener('load', function(){
     const profitDom = document.getElementById("profit");
     const profit = Math.floor(inputValue - tax);
     profitDom.innerHTML = profit;
-    
   });
 });
