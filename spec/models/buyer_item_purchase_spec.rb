@@ -6,22 +6,21 @@ RSpec.describe BuyerItemPurchase, type: :model do
     @item = FactoryBot.create(:item)
     @buyer_item_purchase = FactoryBot.build(:buyer_item_purchase, user_id: @user.id, item_id: @item.id)
   end
-  describe "配送情報の保存" do
-
-    context "配送先情報に内容が問題ない場合" do
+  describe '配送情報の保存' do
+    context '配送先情報に内容が問題ない場合' do
       it '全ての値が正しく入力され、保存ができること' do
         expect(@buyer_item_purchase).to be_valid
       end
 
       it '建物名が空でも保存できること' do
-        @buyer_item_purchase.building_name = ""
+        @buyer_item_purchase.building_name = ''
         expect(@buyer_item_purchase).to be_valid
       end
     end
 
-    context "配送先情報に内容が問題がある場合" do
+    context '配送先情報に内容が問題がある場合' do
       it '郵便番号が空だと保存ができないこと' do
-        @buyer_item_purchase.post_code = ""
+        @buyer_item_purchase.post_code = ''
         @buyer_item_purchase.valid?
         expect(@buyer_item_purchase.errors.full_messages).to include("Post code can't be blank")
       end
@@ -33,19 +32,19 @@ RSpec.describe BuyerItemPurchase, type: :model do
       end
 
       it '市区町村が空だと保存ができないこと' do
-        @buyer_item_purchase.town_name = ""
+        @buyer_item_purchase.town_name = ''
         @buyer_item_purchase.valid?
         expect(@buyer_item_purchase.errors.full_messages).to include("Town name can't be blank")
       end
 
       it '番地が空だと保存ができないこと' do
-        @buyer_item_purchase.number = ""
+        @buyer_item_purchase.number = ''
         @buyer_item_purchase.valid?
         expect(@buyer_item_purchase.errors.full_messages).to include("Number can't be blank")
       end
 
       it '電話番号が空だと保存ができないこと' do
-        @buyer_item_purchase.telephone_number = ""
+        @buyer_item_purchase.telephone_number = ''
         @buyer_item_purchase.valid?
         expect(@buyer_item_purchase.errors.full_messages).to include("Telephone number can't be blank")
       end
@@ -68,36 +67,36 @@ RSpec.describe BuyerItemPurchase, type: :model do
         expect(@buyer_item_purchase.errors.full_messages).to include("Token can't be blank")
       end
     end
-    
-    context "配送先情報に内容が問題がある場合(詳細)" do
+
+    context '配送先情報に内容が問題がある場合(詳細)' do
       it '郵便番号がハイフンを含んだ正しい形式でないと保存できないこと' do
-        @buyer_item_purchase.post_code = "090123456789"
+        @buyer_item_purchase.post_code = '090123456789'
         @buyer_item_purchase.valid?
-        expect(@buyer_item_purchase.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@buyer_item_purchase.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
 
       it '郵便番号が全角だと保存できないこと' do
-        @buyer_item_purchase.post_code = "０９０-１２３４-６７８９"
+        @buyer_item_purchase.post_code = '０９０-１２３４-６７８９'
         @buyer_item_purchase.valid?
-        expect(@buyer_item_purchase.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@buyer_item_purchase.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
 
       it '電話番号が10桁以上11桁以内の半角数値のみでない保存ができないこと' do
-        @buyer_item_purchase.telephone_number = "0901234567８９"
+        @buyer_item_purchase.telephone_number = '0901234567８９'
         @buyer_item_purchase.valid?
-        expect(@buyer_item_purchase.errors.full_messages).to include("Telephone number invalid. Input only number")
+        expect(@buyer_item_purchase.errors.full_messages).to include('Telephone number invalid. Input only number')
       end
 
       it '電話番号が9桁以下だと保存ができないこと' do
-        @buyer_item_purchase.telephone_number = "090123456"
+        @buyer_item_purchase.telephone_number = '090123456'
         @buyer_item_purchase.valid?
-        expect(@buyer_item_purchase.errors.full_messages).to include("Telephone number invalid. Input only number")
+        expect(@buyer_item_purchase.errors.full_messages).to include('Telephone number invalid. Input only number')
       end
 
       it '電話番号が全角数値だと保存ができないこと' do
-        @buyer_item_purchase.telephone_number = "０９０１２３４５６７８"
+        @buyer_item_purchase.telephone_number = '０９０１２３４５６７８'
         @buyer_item_purchase.valid?
-        expect(@buyer_item_purchase.errors.full_messages).to include("Telephone number invalid. Input only number")
+        expect(@buyer_item_purchase.errors.full_messages).to include('Telephone number invalid. Input only number')
       end
     end
   end
