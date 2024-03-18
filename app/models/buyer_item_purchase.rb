@@ -8,10 +8,10 @@ class BuyerItemPurchase
     validates :token
     validates :user_id
     validates :item_id
+    validates :town_name
+    validates :number
   end
 
-  validates :town_name,     presence: true
-  validates :number,        presence: true
   validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
 
   def save

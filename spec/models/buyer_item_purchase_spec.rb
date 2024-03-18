@@ -55,7 +55,7 @@ RSpec.describe BuyerItemPurchase, type: :model do
         expect(@buyer_item_purchase.errors.full_messages).to include("User can't be blank")
       end
 
-      it '商品出品名が紐づいていないと保存ができないこと' do
+      it '購入品が紐づいていないと保存ができないこと' do
         @buyer_item_purchase.item_id = nil
         @buyer_item_purchase.valid?
         expect(@buyer_item_purchase.errors.full_messages).to include("Item can't be blank")

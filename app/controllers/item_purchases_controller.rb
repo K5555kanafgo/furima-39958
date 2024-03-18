@@ -1,16 +1,15 @@
 class ItemPurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
-  before_action :buyer_item_purchase_url, only: [:index, :create, :edit]
+  before_action :set_item, only: [:index, :create]
+  before_action :buyer_item_purchase_url, only: [:index, :create]
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @buyer_item_purchase = BuyerItemPurchase.new
-    @item = Item.find(params[:item_id])
   end
 
   def create
     @buyer_item_purchase = BuyerItemPurchase.new(buyer_params)
-    @item = Item.find(params[:item_id])
     if @buyer_item_purchase.valid?
       pay_item
       @buyer_item_purchase.save
@@ -39,9 +38,12 @@ class ItemPurchasesController < ApplicationController
   end
 
   def buyer_item_purchase_url
-    @item = Item.find(params[:item_id])
     return unless @item.user_id == current_user.id || @item.item_purchase.present?
 
     redirect_to root_path
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 end
