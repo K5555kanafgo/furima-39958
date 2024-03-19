@@ -134,7 +134,7 @@
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
 
-          <% if @user_item %>
+          <% if item.item_purchase.present? %>
             <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>
@@ -175,7 +175,7 @@
         </div>
         <% end %>
       </li>
-    <% end %>
+     <% end %>
     </ul>
   </div>
   <%# /商品一覧 %>

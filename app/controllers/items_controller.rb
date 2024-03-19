@@ -35,12 +35,9 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if user_signed_in? && current_user.id == @item.user_id
-      @item.destroy
-    end
+    @item.destroy if user_signed_in? && current_user.id == @item.user_id
     redirect_to root_path
   end
-
 
   private
 
@@ -54,8 +51,8 @@ class ItemsController < ApplicationController
   end
 
   def item_url
-    unless current_user.id == @item.user_id
-      redirect_to action: :index
-    end
+    return unless current_user.id != @item.user_id || @item.item_purchase.present?
+
+    redirect_to root_path
   end
 end
